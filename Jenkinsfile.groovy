@@ -1,10 +1,10 @@
 pipeline {
     agent any
     stages{
-        stage('Build'){
+        stage ('Build') {
             steps {
-                sh 'mvn clean package'
-            }
+                 sh 'mvn clean package'
+                       }
             post {
                 success {
                     echo 'Now Archiving...'
@@ -12,5 +12,10 @@ pipeline {
                 }
             }
         }
+	stage ('Deploy to Test Env') {
+	    steps {
+	         build job : 'JenkinsDeployArtifactToTestEnvironmentJob'
+		 }
+          }
     }
 }
